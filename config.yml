@@ -1,0 +1,86 @@
+####################
+# CircleCI configuration reference:
+#   https://circleci.com/docs/2.0/configuration-reference
+####################
+
+version: 2
+
+#####################################################
+# Jobs: see https://circleci.com/docs/2.0/jobs-steps/
+#####################################################
+
+jobs:
+  test:
+    docker: # run the steps with Docker
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            python3 -m virtualenv venv
+            . venv/bin/activate
+            make install-requirements
+            make test
+            make lint
+            make coverage
+
+  deploy:
+    docker:
+      - image: docker:18.02.0-ce
+    working_directory: ~/mozilla/mozilla-schema-generator
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          printf '{"commit":"%s","version":"%s","source":"https://github.com/%s/%s","build":"%s"}\n' "$CIRCLE_SHA1" "$CIRCLE_TAG" "$CIRCLE_PROJECT_USERNAME" "$CIRCLE_PROJECT_REPONAME" "$CIRCLE_BUILD_URL" > version.json
+      - run: docker build -t app:build .
+      - run:
+          name: Deploy to Dockerhub
+          command: |
+            # Deploy master
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker tag app:build ${DOCKERHUB_REPO}:latest
+              docker push ${DOCKERHUB_REPO}:latest
+            elif  [ ! -z "${CIRCLE_TAG}" ]; then
+            # Deploy a release tag...
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              echo "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+              docker tag app:build "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+              docker images
+              docker push "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+            fi
+
+#########################################################
+# Workflows: see https://circleci.com/docs/2.0/workflows/
+#########################################################
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: master
+
+  nightly: # Test nightly to test external dependencies (MPS, probe-info-service)
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test

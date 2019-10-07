@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: "no"
+    command: "true"
+    environment:
+      - GCLOUD_SERVICE_KEY
+      - GOOGLE_APPLICATION_CREDENTIALS
