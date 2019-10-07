@@ -6,9 +6,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import os
-import sys
-
 from setuptools import setup, find_packages
 
 readme = open('README.md').read()
