@@ -14,11 +14,9 @@ from setuptools import setup, find_packages
 readme = open('README.md').read()
 
 setup(
+    # Change these when cloning this repo!
     name='generic-docker-python',
-    python_requires='>=3.6.0',
-    version='0.0.0',
     description='A sample application',
-    long_description=readme,
     author='Frank Bertsch',
     author_email='frank@mozilla.com',
     url='https://github.com/fbertsch/generic-docker-python',
@@ -29,6 +27,11 @@ setup(
             'python-application=python_application.__main__:main',
         ],
     },
+
+    # These don't necessarily need changed
+    python_requires='>=3.6.0',
+    version='0.0.0',
+    long_description=readme,
     include_package_data=True,
     install_requires=[
         'click',
