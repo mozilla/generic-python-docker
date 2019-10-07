@@ -13,13 +13,22 @@ be run in GKE using Airflow.
 ## Cloning and Replacing
 
 If you're going to clone this and start a new project, here's the parts you need to replace:
-1. This `README.md`
+1. `README.md`
 2. The `hello-world` step in `Makefile`. You can simply remove it and use `make run COMMAND="python-application hello-world"`
    (replaced with what your app is called) instead
-3. The `application.py` file (including the correponding runner in `__main__.py`,
+3. `application.py` (including the correponding runner in `__main__.py`,
    as well as the test in `tests/test_application.py`, and that test file's name)
-4. The `APP_NAME` in `Dockerfile` (line 4)
-5. The `setup.py` file (Start at line 17)
+4. `APP_NAME` in `Dockerfile` (line 4)
+5. `setup.py` file (Start at line 17)
+
+
+## Setup for Deployment
+
+This deploys using Dockerhub and CircleCI. To enable deployment:
+
+1. Enable the project in circleci
+2. Add the `DOCKER_USER`, `DOCKER_PASS`, and `DOCKERHUB_REPO` environment variables
+   in the circleci UI (under `settings` -> `Environment Variables`)
 
 ## Development and Testing
 
