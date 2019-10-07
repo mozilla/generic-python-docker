@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+# Use credentials from environment
+if [ -n "$GCLOUD_SERVICE_KEY" ]; then
+    # Google's client libraries will check for GOOGLE_APPLICATION_CREDENTIALS
+    # and use a file in that location for credentials if present;
+    # See https://cloud.google.com/docs/authentication/production
+    export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-/tmp/gcp.json}"
+    echo "$GCLOUD_SERVICE_KEY" > "$GOOGLE_APPLICATION_CREDENTIALS"
+fi
+
+if [ -n "$GOOGLE_APPLICATION_CREDENTIALS" ] && which gcloud > /dev/null; then
+    gcloud --quiet auth activate-service-account --key-file "$GOOGLE_APPLICATION_CREDENTIALS"
+    python -W ignore -c 'import google.auth; print("project = ", google.auth.default()[1])' >> ~/.config/gcloud/configurations/config_default
+    sed "1i--project_id=$(gcloud config get-value project)" -i ~/.bigqueryrc
+fi
+
+if [ "$1" = test ]; then
+    exec pytest "${@:2}"
+else
+    exec "$@"
+fi
