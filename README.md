@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/fbertsch/generic-docker-python/tree/master.svg?style=svg)](https://circleci.com/gh/fbertsch/generic-docker-python/tree/master)
+[![CircleCI](https://circleci.com/gh/fbertsch/generic-python-docker.svg?style=svg)](https://circleci.com/gh/fbertsch/generic-python-docker)
 
 # Generic Dockerized Python Application
 
