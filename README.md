@@ -13,12 +13,13 @@ be run in GKE using Airflow.
 ## Cloning and Replacing
 
 If you're going to clone this and start a new project, here's the parts you need to replace:
-1. This README
-2. The "hello-world" step of the Makefile
-3. The "application.py" python code (including the correponding runner in __main__.py,
-   as well as the test in tests/test_application.py)
-4. The APP_NAME in Dockerfile
-5. The setup.py file (Start at line 17)
+1. This `README.md`
+2. The `hello-world` step in `Makefile`. You can simply remove it and use `make run COMMAND="python-application hello-world"`
+   (replaced with what your app is called) instead
+3. The `application.py` file (including the correponding runner in `__main__.py`,
+   as well as the test in `tests/test_application.py`, and that test file's name)
+4. The `APP_NAME` in `Dockerfile` (line 4)
+5. The `setup.py` file (Start at line 17)
 
 ## Development and Testing
 
