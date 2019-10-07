@@ -30,6 +30,8 @@ This deploys using Dockerhub and CircleCI. To enable deployment:
 2. Add the `DOCKER_USER`, `DOCKER_PASS`, and `DOCKERHUB_REPO` environment variables
    in the circleci UI (under `settings` -> `Environment Variables`)
 
+**NOTE**: When running on Mozilla infrastructure, dataops can set these for your project. [Create a bug here](https://bugzilla.mozilla.org/enter_bug.cgi?component=Operations&product=Data%20Platform%20and%20Tools)
+
 ## Development and Testing
 
 While iterating on development, we recommend using virtualenv
