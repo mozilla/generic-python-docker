@@ -54,7 +54,7 @@ jobs:
           command: docker load -i /cache/docker.tar
       - run:
           name: Test Code
-          command: docker-compose run app test
+          command: docker run app:build test
 
   deploy:
     docker:
