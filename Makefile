@@ -43,7 +43,7 @@ shell:
 	docker-compose run app bash
 
 run:
-	docker-compose run app $(COMMAND)
+	docker-compose run -e GCLOUD_SERVICE_KEY app $(COMMAND)
 
 stop:
 	docker-compose down

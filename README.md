@@ -33,6 +33,17 @@ This deploys using Dockerhub and CircleCI. To enable deployment:
 
 **NOTE**: When running on Mozilla infrastructure, dataops can set these for your project. [Create a bug here](https://bugzilla.mozilla.org/enter_bug.cgi?component=Operations&product=Data%20Platform%20and%20Tools)
 
+## Running GCP Jobs
+
+Figuring out access credentials is hard. To test out GCP work, [you'll need to have a test project.](https://github.com/whd/gcp-quickstart)
+
+Once you have one, create a new service account:
+1. Create a new service account in the [BQ Console](Go to console.cloud.bigquery.com/)
+2. Give it access to the tools you need: e.g. BigQuery, GCS, Dataflow
+3. Create a JSON key for that service account
+4. Set that key locally as `GCLOUD_SERVICE_ACCOUNT`
+5. Run your job using `make run ...`, which will automatically use that service account
+
 ## Development and Testing
 
 While iterating on development, we recommend using virtualenv

@@ -9,4 +9,3 @@ services:
     command: "true"
     environment:
       - GCLOUD_SERVICE_KEY
-      - GOOGLE_APPLICATION_CREDENTIALS
