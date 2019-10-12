@@ -38,7 +38,7 @@ This deploys using Dockerhub and CircleCI. To enable deployment:
 Figuring out access credentials is hard. To test out GCP work, [you'll need to have a test project.](https://github.com/whd/gcp-quickstart)
 
 Once you have one, create a new service account:
-1. Create a new service account in the [BQ Console](Go to console.cloud.bigquery.com/)
+1. Create a new service account in the [BQ Console](console.cloud.bigquery.com/)
 2. Give it access to the tools you need: e.g. BigQuery, GCS, Dataflow
 3. Create a JSON key for that service account
 4. Set that key locally as `GCLOUD_SERVICE_ACCOUNT`
