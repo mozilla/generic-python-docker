@@ -21,6 +21,7 @@ If you're going to clone this and start a new project, here's the parts you need
    as well as the test in `tests/test_application.py`, and that test file's name)
 5. `APP_NAME` in `Dockerfile` (line 4)
 6. `setup.py` file (Start at line 17)
+7. The directory for linting in `.circleci/config.yml` (line 60)
 
 
 ## Setup for Deployment
