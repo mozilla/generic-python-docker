@@ -57,7 +57,7 @@ jobs:
           command: docker run app:build test
       - run:
           name: Lint Code
-          command: docker run app:build flake8 python-application/python_application pyton-application/tests --max-line-length 100
+          command: docker run app:build flake8 python-application
 
   deploy:
     docker:

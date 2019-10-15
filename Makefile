@@ -24,7 +24,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 --max-line-length 100
+	flake8 .
 
 test:
 	docker-compose run app test
